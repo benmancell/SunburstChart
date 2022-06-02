@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Permits and Sub-Permits</title>
+<link href="css/bootstrap.css" rel="stylesheet">
+<link href='https://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+<link href='http://fonts.googleapis.com/css?family=Lato' rel='stylesheet' type='text/css'>
+  <style type="text/css">
+  <head>
+    <style>
+
+    path {
+      stroke: #fff;
+    }
+    .logo{
+      background-image: url('https://raw.githubusercontent.com/NYCDOB/CommunityProfiles_v2/gh-pages/dob_logo_white_transparent.png');
+      background-repeat: no-repeat;
+      background-position: center;
+      float: right;
+      background-size: 80px;
+      height: 50px;
+      width: 110px;	  
+    }
+    #mainBody{     
+      width:100%;
+      height:100%;
+    }
+    #myTreeView {
+      margin: 0;
+      padding: 5px;
+    }
+    .expandable {
+      cursor: pointer;
+      -webkit-user-select: none; /* Safari 3.1+ */
+      -moz-user-select: none; /* Firefox 2+ */
+      -ms-user-select: none; /* IE 10+ */
+      user-select: none;
+    }
+    .expandable::before {
+      content: "\25B6";
+      color: black;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .expanded::before {
+      -ms-transform: rotate(90deg); /* IE 9 */
+      -webkit-transform: rotate(90deg); /* Safari */
+      transform: rotate(90deg);  
+    }
+    .non-expandable {
+      display: none;
+    }
+    .active {
+      display: block;
+    }
+    #row {
+      color: black !important;
+      font-family: Lato;
+      font-size: 18px;
+    }
+    #row:hover {
+      cursor: pointer;
+      background-color:#f5f5f5;
+    }
+    #treelist {
+      overflow-y: auto;
+    }
+    .expandable a {
+      text-decoration: none !important;
+      color: black !important; 
+    }
+    .non-expandable a {
+      text-decoration: none !important;
+      color: black !important; 
+    }
+
+    </style>
+  </head>
+<body>
+  <div class="container">
+    <div class="navbar navbar-fixed-top" role="navigation" style="color:white;background-color:RGB(61,74,87);">
+    <a class="logo" href="https://www1.nyc.gov/site/buildings/index.page" target="_blank"> </a>
+      <div class="nav navbar-nav" style="margin-left:15px;margin-top:10px;font-size:26px;font-weight:bold;text-align:center;">
+        PERMITS & SUB-PERMITS 2000 - 2017
+      </div>
+    </div>
+  </div>
+  <div class="container-fluid" style="margin-top:100px;">
+    <div class="row">
+      <div class="col-lg-6">
+        <div id="mainBody"></div>
+      </div>
+      <div class="col-lg-6" class="text-right">
+        <div class="chart-wrapper" id="treelist">
+            <li>
+              <span id="row" class="expandable">Total Permits: 2,137,759</span>
+              <ul class="non-expandable">	
+                <li><span id="row">New Buildings (NB): 175,627</span></li>
+                <li><span id="row">Alteration 1 (A1): 140,099</span></li>
+                <li><span id="row" class="expandable">Alteration 2 (A2): 1,481,427</span>
+                  <ul class="non-expandable">
+                    <li><span id="row" class="expandable">Construction Equipment: 49,483</span>
+                      <ul class="non-expandable">
+                        <li><span id="row">Chute: 73</span></li>
+                        <li><span id="row">Fence: 44,489</span></li>
+                        <li><span id="row">Other Construction Equipment: 789</span></li>
+                        <li><span id="row">Scaffold: 1,092</span></li>
+                        <li><span id="row">Sidewalk Shed: 3,040</span></li>
+                      </ul>
+                    </li>
+                    <li><span id="row" class="expandable">Equipment Work: 1,431,944</span>
+                      <ul class="non-expandable">
+                        <li><span id="row">Boiler: 43,804</span></li>
+                        <li><span id="row">Fire Alarm: 22</span></li>
+                        <li><span id="row">Fire Suppression: 38,609</span></li>
+                        <li><span id="row">Fuel Burning: 22,124</span></li>
+                        <li><span id="row">Fire Storage: 14,543</span></li>
+                        <li><span id="row">Mechanical/HVAC: 218,362</span></li>
+                        <li><span id="row">Other: 644,757</span></li>
+                        <li><span id="row">Sprinkler: 90,327</span></li>
+                        <li><span id="row">Stand Pipe: 14,199</span></li>
+                        <li><span id="row">Plumbing: 345,197</span></li>
+                      </ul>	
+                    </li>
+                  </ul>
+                </li>
+                <li><span id="row" class="expandable">Alteration 3 (A3): 302,283</span>
+                  <ul class="non-expandable">
+                    <li><span id="row">No SubType: 76,182</span></li>
+                    <li><span id="row" class="expandable">Construction Equipment: 226,101</span>
+                      <ul class="non-expandable">
+                        <li><span id="row">Chute: 1,013</span></li>
+                        <li><span id="row">Fence: 31,941</span></li>
+                        <li><span id="row">Other Construction Equipment: 14,911</span></li>
+                        <li><span id="row">Scaffold: 46,189</span></li>
+                        <li><span id="row">Sidewalk Shed: 132,047</span></li>
+                      </ul>
+                    </li>
+                  </ul>
+                </li>
+                <li><span id="row">Demolition (DM): 38,323</span></li>              
+              </ul>
+            </li>
+        </div>
+      </div>
+    </div>
+  </div> 
+
+
+<script src="libs/d3.js"></script>
+<script src="libs/jquery.js"></script>
+<script src="libs/bootstrap.js"></script>
+<script src="libs/underscore.js"></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js'></script>
+<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mark.js/8.11.1/jquery.mark.es6.js"></script>
+<script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
+<script>
+
+
+
+var toggler = document.getElementsByClassName("expandable");
+	var i;
+
+  for (i = 0; i < toggler.length; i++) {
+      toggler[i].parentElement.querySelector(".non-expandable").classList.toggle("active");
+      toggler[i].classList.toggle("expanded");
+  }
+
+
+	for (i = 0; i < toggler.length; i++) {
+	  toggler[i].addEventListener("click", function() {
+		this.parentElement.querySelector(".non-expandable").classList.toggle("active");
+		this.classList.toggle("expanded");   
+	  });
+	}
+
+
+
+var width = 960,
+    height = 700,
+    radius = (Math.min(width, height) / 2) - 10;
+
+var formatNumber = d3.format(",d");
+
+var x = d3.scale.linear()
+    .range([0, 2 * Math.PI]);
+
+var y = d3.scale.sqrt()
+    .range([0, radius]);
+
+var colors = d3.scale.ordinal()
+	.range(["#2D3037","#dddddd"/*ALL*/,"#4e79a7"/*NB*/,"#59a14f"/*A1*/,"#76b7b2"/*DM*/,"#C0504D"/*A2*/,"#58b5e1"/*A2-CONSTRUCTION EQUIPMENT*/,"#edc949"/*A2-CHUTE*/,
+  "#cfdf34"/*A2-FENCE*/, "#cfdf34"/*A2-OTHER CONSTRUCTION*/, "#cfdf34"/*A2-SCAFFOLDING*/, "#ff0087"/*A2-SIDEWALK SHED*/, "#a297ca"/*A2-EQUIPMENT*/, "#f75ef0"/*A2-BOILER*/, 
+  "#f75ef0"/*A2-FIRE ALARM*/, "#758c45"/*A2-FIRE SUPPRESSION*/, "#2d747a"/*A2-FUEL BURNING*/, "#0494fb"/*A2-FUEL STORAGE*/, "#900e08"/*A2-MECHANICAL HVAC*/, 
+  "#bccd97"/*A2-OTHER*/, "#2d5192"/*A2-SPRINKLER*/, "#f3c011"/*A2-STANDPIPE*/, "#a1def0"/*A2-PLUMBING*/, "#f28e2c"/*A3*/, "#bce333"/*A3-NO SUBTYPE*/, 
+  "#2a6866"/*A3-CONSTRUCTION EQUIPMENT*/, "#56ebd3"/*A3-CHUTE*/, "#e76cef"/*A3-FENCE*/, "#4d9caa"/*A3-OTHER*/, "#bfd6fa"/*A3-SCAFFOLD*/, "#79c8ae"/*A3-SIDEWALK SHEDS*/])
+
+var partition = d3.layout.partition()
+    .value(function(d) { return d.size; });
+
+var arc = d3.svg.arc()
+    .startAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x))); })
+    .endAngle(function(d) { return Math.max(0, Math.min(2 * Math.PI, x(d.x + d.dx))); })
+    .innerRadius(function(d) { return Math.max(0, y(d.y)); })
+    .outerRadius(function(d) { return Math.max(0, y(d.y + d.dy)); });
+
+var svg = d3.select("#mainBody").append("svg")
+    .attr("width", "100%")
+    .attr("height", height)
+    .attr('preserveAspectRatio','xMinYMin')
+    .attr('viewBox','0 0 960 860')
+
+  .append("g")
+    .attr("transform", "translate(" + width / 2 + "," + (height / 2) + ")");
+
+var uniqueNames = (function(a) {
+	var output = [];
+	a.forEach(function(d) {
+		if (output.indexOf(d.name) === -1) {
+			output.push(d.name);
+		}
+	});
+	return output;
+});
+
+colors.domain(uniqueNames);
+
+d3.json("data/PermitsSubTypes_Q12000_Q22017.json", function(error, root) {
+  if (error) throw error;
+
+  svg.selectAll("path")
+      .data(partition.nodes(root))
+    .enter().append("path")
+      .attr("d", arc)
+	  .style("fill", function(d) { return colors(d.name); })
+      .on("click", click)
+    .append("title")
+      .text(function(d) { return d.name + "\n" + formatNumber(d.value); });
+});
+
+function click(d) {
+  svg.transition()
+      .duration(750)
+      .tween("scale", function() {
+        var xd = d3.interpolate(x.domain(), [d.x, d.x + d.dx]),
+            yd = d3.interpolate(y.domain(), [d.y, 1]),
+            yr = d3.interpolate(y.range(), [d.y ? 20 : 0, radius]);
+        return function(t) { x.domain(xd(t)); y.domain(yd(t)).range(yr(t)); };
+      })
+    .selectAll("path")
+      .attrTween("d", function(d) { return function() { return arc(d); }; });
+}
+
+d3.select(self.frameElement).style("height", height + "px");
+
+</script>
+</body>
+</html>

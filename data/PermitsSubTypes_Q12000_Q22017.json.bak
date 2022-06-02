@@ -1,0 +1,55 @@
+{
+ "name": "Total Permits",
+ "children": [
+  {"name": "NB", "size": 175627},
+  {"name": "A1", "size": 140099},  
+  {
+   "name": "A2",
+   "children": [
+    {
+     "name": "A2: Construction Equipment",
+     "children": [
+      {"name": "A2: Construction Equipment: Chute", "size": 73},
+      {"name": "A2: Construction Equipment: Fence", "size": 44489},
+      {"name": "A2: Construction Equipment: Other Construction Equipment", "size": 789},
+      {"name": "A2: Construction Equipment: Scaffold", "size": 1092},
+	  {"name": "A2: Construction Equipment: Sidewalk Shed", "size": 3040}
+     ]
+    },
+    {
+     "name": "A2: Equipment Work",
+     "children": [
+      {"name": "A2: Equipment Work: Boiler", "size": 43804},
+      {"name": "A2: Equipment Work: Fire Alarm", "size": 22},
+      {"name": "A2: Equipment Work: Fire Suppression", "size": 38609},
+      {"name": "A2: Equipment Work: Fuel Burning", "size": 22124},
+      {"name": "A2: Equipment Work: Fuel Storage", "size": 14543},
+	  {"name": "A2: Equipment Work: Mechanical/HVAC", "size": 218362},
+      {"name": "A2: Equipment Work: Other", "size": 644757},
+      {"name": "A2: Equipment Work: Sprinkler", "size": 90327},
+      {"name": "A2: Equipment Work: Stand Pipe", "size": 14199},
+      {"name": "A2: Equipment Work: Plumbing", "size": 345197}
+     ]
+    }
+   ]
+  },
+  {
+   "name": "A3",
+   "children": [
+    {"name": "A3: No SubType", "size": 76182},
+
+    {
+     "name": "A3: Construction Equipment",
+     "children": [
+      {"name": "A3: Construction Equipment: Chute", "size": 1013},
+      {"name": "A3: Construction Equipment: Fence", "size": 31941},
+      {"name": "A3: Construction Equipment: Other Construction Equipment", "size": 14911},
+      {"name": "A3: Construction Equipment: Scaffold", "size": 46189},
+      {"name": "A3: Construction Equipment: Sidewalk Shed", "size": 132047}
+     ]
+    }
+   ]
+  },
+ {"name": "DM", "size": 38323}
+ ]
+}
