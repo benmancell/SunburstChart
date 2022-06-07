@@ -1,0 +1,63 @@
+{
+ "name": "Total Permits: 2.1M",
+ "children": [
+  {
+   "name": "New Buildings(NB): 176K", "size": 175627
+  },
+  {
+   "name": "Alteration 1 (A1): 140K", "size": 140099
+
+  },
+  {
+   "name": "Alteration 2 (A2): 1.5M",
+   "children": [
+    {
+     "name": "Construction Equipment: 49K",
+     "children": [
+      {"name": "Chute: 73", "size": 73},
+      {"name": "Fence: 44,489", "size": 44489},
+      {"name": "Other Construction Equipment: 789", "size": 789},
+      {"name": "Scaffold: 1,092", "size": 1092},
+      {"name": "Sidewalk Shed: 3,040", "size": 3040}
+     ]
+    },
+    {
+     "name": "Equipment Work: 1.4M",
+     "children": [
+      {"name": "Boiler: 43,804", "size": 43804},
+      {"name": "Fire Alarm: 22", "size": 22},
+      {"name": "Fire Suppression: 38,609", "size": 38609},
+      {"name": "Fuel Burning: 22,124", "size": 22124},
+      {"name": "Fire Storage: 14,543", "size": 14543},
+      {"name": "Mechanical/HVAC: 218,362", "size": 218362},
+      {"name": "Other: 644,757", "size": 644757},
+      {"name": "Sprinkler: 90,327", "size": 90327},
+      {"name": "Stand Pipe: 14,199", "size": 14199},
+      {"name": "Plumbing: 345,197", "size": 345197}	  
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Alteration 3 (A3): 302K",
+   "children": [
+    {
+     "name": "No SubType: 76K", "size": 76182
+    },
+    {
+     "name": "Construction Equipment: 226K",
+     "children": [
+      {"name": "Chute: 1,013", "size": 1013},
+      {"name": "Fence: 31,941", "size": 31941},
+      {"name": "Other Construction Equipment: 14,911", "size": 14911},
+      {"name": "Scaffold: 46,189", "size": 22124},
+      {"name": "Sidewalk Shed: 132,047", "size": 132047}  
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Demolition (DM): 38K", "size": 38323
+  }
+]
+}
