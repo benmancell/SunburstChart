@@ -26,55 +26,40 @@
     #mainBody{     
       width:100%;
       height:100%;
+      margin-top: 120px;
     }
-    #myTreeView {
-      margin: 0;
-      padding: 5px;
+
+
+  #treelist {
+    overflow-y: auto;
+  }
+
+
+	.node {
+	  cursor: pointer;
+	}
+
+	.node circle {
+	  fill: #fff;
+	  stroke: steelblue;
+	  stroke-width: 1.5px;
+	}
+
+	.node text {
+	  font: 12px sans-serif;
+	}
+
+	.link {
+	  fill: none;
+	  stroke: #ccc;
+	  stroke-width: 1.5px;
+	}
+
+  @media(max-width:1200px){
+    #mainBody{
+      margin-top:15px;
     }
-    .expandable {
-      cursor: pointer;
-      -webkit-user-select: none; /* Safari 3.1+ */
-      -moz-user-select: none; /* Firefox 2+ */
-      -ms-user-select: none; /* IE 10+ */
-      user-select: none;
-    }
-    .expandable::before {
-      content: "\25B6";
-      color: black;
-      display: inline-block;
-      margin-right: 6px;
-    }
-    .expanded::before {
-      -ms-transform: rotate(90deg); /* IE 9 */
-      -webkit-transform: rotate(90deg); /* Safari */
-      transform: rotate(90deg);  
-    }
-    .non-expandable {
-      display: none;
-    }
-    .active {
-      display: block;
-    }
-    #row {
-      color: black !important;
-      font-family: Lato;
-      font-size: 18px;
-    }
-    #row:hover {
-      cursor: pointer;
-      background-color:#f5f5f5;
-    }
-    #treelist {
-      overflow-y: auto;
-    }
-    .expandable a {
-      text-decoration: none !important;
-      color: black !important; 
-    }
-    .non-expandable a {
-      text-decoration: none !important;
-      color: black !important; 
-    }
+  }
 
     </style>
   </head>
@@ -93,57 +78,7 @@
         <div id="mainBody"></div>
       </div>
       <div class="col-lg-6" class="text-right">
-        <div class="chart-wrapper" id="treelist">
-            <li>
-              <span id="row" class="expandable">Total Permits: 2,137,759</span>
-              <ul class="non-expandable">	
-                <li><span id="row">New Buildings (NB): 175,627</span></li>
-                <li><span id="row">Alteration 1 (A1): 140,099</span></li>
-                <li><span id="row" class="expandable">Alteration 2 (A2): 1,481,427</span>
-                  <ul class="non-expandable">
-                    <li><span id="row" class="expandable">Construction Equipment: 49,483</span>
-                      <ul class="non-expandable">
-                        <li><span id="row">Chute: 73</span></li>
-                        <li><span id="row">Fence: 44,489</span></li>
-                        <li><span id="row">Other Construction Equipment: 789</span></li>
-                        <li><span id="row">Scaffold: 1,092</span></li>
-                        <li><span id="row">Sidewalk Shed: 3,040</span></li>
-                      </ul>
-                    </li>
-                    <li><span id="row" class="expandable">Equipment Work: 1,431,944</span>
-                      <ul class="non-expandable">
-                        <li><span id="row">Boiler: 43,804</span></li>
-                        <li><span id="row">Fire Alarm: 22</span></li>
-                        <li><span id="row">Fire Suppression: 38,609</span></li>
-                        <li><span id="row">Fuel Burning: 22,124</span></li>
-                        <li><span id="row">Fire Storage: 14,543</span></li>
-                        <li><span id="row">Mechanical/HVAC: 218,362</span></li>
-                        <li><span id="row">Other: 644,757</span></li>
-                        <li><span id="row">Sprinkler: 90,327</span></li>
-                        <li><span id="row">Stand Pipe: 14,199</span></li>
-                        <li><span id="row">Plumbing: 345,197</span></li>
-                      </ul>	
-                    </li>
-                  </ul>
-                </li>
-                <li><span id="row" class="expandable">Alteration 3 (A3): 302,283</span>
-                  <ul class="non-expandable">
-                    <li><span id="row">No SubType: 76,182</span></li>
-                    <li><span id="row" class="expandable">Construction Equipment: 226,101</span>
-                      <ul class="non-expandable">
-                        <li><span id="row">Chute: 1,013</span></li>
-                        <li><span id="row">Fence: 31,941</span></li>
-                        <li><span id="row">Other Construction Equipment: 14,911</span></li>
-                        <li><span id="row">Scaffold: 46,189</span></li>
-                        <li><span id="row">Sidewalk Shed: 132,047</span></li>
-                      </ul>
-                    </li>
-                  </ul>
-                </li>
-                <li><span id="row">Demolition (DM): 38,323</span></li>              
-              </ul>
-            </li>
-        </div>
+          <div class="chart-wrapper" id="treelist"></div>
       </div>
     </div>
   </div> 
@@ -160,26 +95,154 @@
 <script src="https://gitcdn.github.io/bootstrap-toggle/2.2.2/js/bootstrap-toggle.min.js"></script>
 <script>
 
+var margin = {top: 0, right: 120, bottom: 0, left: 120},
+		widthTree = 960 - margin.right - margin.left,
+		heightTree = 800 - margin.top - margin.bottom;
+
+	var i = 0,
+		duration = 750,
+		root;
+
+	var tree = d3.layout.tree()
+		.size([heightTree, widthTree]);
+
+	var diagonal = d3.svg.diagonal()
+		.projection(function(d) { return [d.y, d.x]; });
+
+  var svgTree = d3.select("#treelist").append("svg")
+		.attr("width", "100%")
+		.attr("height", heightTree + margin.top + margin.bottom)
+    .attr('preserveAspectRatio','xMinYMin')
+    .attr('viewBox','0 0 960 800')    
+	  .append("g")
+		.attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
 
-var toggler = document.getElementsByClassName("expandable");
-	var i;
 
-  for (i = 0; i < toggler.length; i++) {
-      toggler[i].parentElement.querySelector(".non-expandable").classList.toggle("active");
-      toggler[i].classList.toggle("expanded");
-  }
+	d3.json("data/PermitsTree.json", function(error, permitsTree) {
+	  if (error) throw error;
 
+	  root = permitsTree;
+	  root.x0 = heightTree / 2;
+	  root.y0 = 0;
 
-	for (i = 0; i < toggler.length; i++) {
-	  toggler[i].addEventListener("click", function() {
-		this.parentElement.querySelector(".non-expandable").classList.toggle("active");
-		this.classList.toggle("expanded");   
+	  function collapse(d) {
+		if (d.children) {
+		  d._children = d.children;
+		  d._children.forEach(collapse);
+		  d.children = null;
+		}
+	  }
+
+	  root.children.forEach(collapse);
+	  update(root);
+	});
+
+	d3.select(self.frameElement).style("height", "800px");
+
+	function update(source) {
+
+	  // Compute the new tree layout.
+	  var nodes = tree.nodes(root).reverse(),
+		  links = tree.links(nodes);
+
+	  // Normalize for fixed-depth.
+	  nodes.forEach(function(d) { d.y = d.depth * 180; });
+
+	  // Update the nodes…
+	  var node = svgTree.selectAll("g.node")
+		  .data(nodes, function(d) { return d.id || (d.id = ++i); });
+
+	  // Enter any new nodes at the parent's previous position.
+	  var nodeEnter = node.enter().append("g")
+		  .attr("class", "node")
+		  .attr("transform", function(d) { return "translate(" + source.y0 + "," + source.x0 + ")"; })
+		  .on("click", click);
+
+	  nodeEnter.append("circle")
+		  .attr("r", 1e-6)
+		  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+	  nodeEnter.append("text")
+		  .attr("x", function(d) { return d.children || d._children ? -10 : 10; })
+		  .attr("dy", ".35em")
+		  .attr("text-anchor", function(d) { return d.children || d._children ? "end" : "start"; })
+		  .text(function(d) { return d.name; })
+		  .style("fill-opacity", 1e-6);
+
+	  // Transition nodes to their new position.
+	  var nodeUpdate = node.transition()
+		  .duration(duration)
+		  .attr("transform", function(d) { return "translate(" + d.y + "," + d.x + ")"; });
+
+	  nodeUpdate.select("circle")
+		  .attr("r", 4.5)
+		  .style("fill", function(d) { return d._children ? "lightsteelblue" : "#fff"; });
+
+	  nodeUpdate.select("text")
+		  .style("fill-opacity", 1);
+
+	  // Transition exiting nodes to the parent's new position.
+	  var nodeExit = node.exit().transition()
+		  .duration(duration)
+		  .attr("transform", function(d) { return "translate(" + source.y + "," + source.x + ")"; })
+		  .remove();
+
+	  nodeExit.select("circle")
+		  .attr("r", 1e-6);
+
+	  nodeExit.select("text")
+		  .style("fill-opacity", 1e-6);
+
+	  // Update the links…
+	  var link = svgTree.selectAll("path.link")
+		  .data(links, function(d) { return d.target.id; });
+
+	  // Enter any new links at the parent's previous position.
+	  link.enter().insert("path", "g")
+		  .attr("class", "link")
+		  .attr("d", function(d) {
+			var o = {x: source.x0, y: source.y0};
+			return diagonal({source: o, target: o});
+		  });
+
+	  // Transition links to their new position.
+	  link.transition()
+		  .duration(duration)
+		  .attr("d", diagonal);
+
+	  // Transition exiting nodes to the parent's new position.
+	  link.exit().transition()
+		  .duration(duration)
+		  .attr("d", function(d) {
+			var o = {x: source.x, y: source.y};
+			return diagonal({source: o, target: o});
+		  })
+		  .remove();
+
+	  // Stash the old positions for transition.
+	  nodes.forEach(function(d) {
+		d.x0 = d.x;
+		d.y0 = d.y;
 	  });
+	}
+
+	// Toggle children on click.
+	function click(d) {
+	  if (d.children) {
+		d._children = d.children;
+		d.children = null;
+	  } else {
+		d.children = d._children;
+		d._children = null;
+	  }
+	  update(d);
 	}
 
 
 
+
+$(document).ready(function(){
 var width = 960,
     height = 700,
     radius = (Math.min(width, height) / 2) - 10;
@@ -194,8 +257,8 @@ var y = d3.scale.sqrt()
 
 var colors = d3.scale.ordinal()
 	.range(["#2D3037","#dddddd"/*ALL*/,"#4e79a7"/*NB*/,"#59a14f"/*A1*/,"#76b7b2"/*DM*/,"#C0504D"/*A2*/,"#58b5e1"/*A2-CONSTRUCTION EQUIPMENT*/,"#edc949"/*A2-CHUTE*/,
-  "#cfdf34"/*A2-FENCE*/, "#cfdf34"/*A2-OTHER CONSTRUCTION*/, "#cfdf34"/*A2-SCAFFOLDING*/, "#ff0087"/*A2-SIDEWALK SHED*/, "#a297ca"/*A2-EQUIPMENT*/, "#f75ef0"/*A2-BOILER*/, 
-  "#f75ef0"/*A2-FIRE ALARM*/, "#758c45"/*A2-FIRE SUPPRESSION*/, "#2d747a"/*A2-FUEL BURNING*/, "#0494fb"/*A2-FUEL STORAGE*/, "#900e08"/*A2-MECHANICAL HVAC*/, 
+  "#cfdf34"/*A2-FENCE*/, "#b3b3b3"/*A2-OTHER CONSTRUCTION*/, "#8da0cb"/*A2-SCAFFOLDING*/, "#ff0087"/*A2-SIDEWALK SHED*/, "#a297ca"/*A2-EQUIPMENT*/, "#f75ef0"/*A2-BOILER*/, 
+  "#e41a1c"/*A2-FIRE ALARM*/, "#758c45"/*A2-FIRE SUPPRESSION*/, "#2d747a"/*A2-FUEL BURNING*/, "#0494fb"/*A2-FUEL STORAGE*/, "#900e08"/*A2-MECHANICAL HVAC*/, 
   "#bccd97"/*A2-OTHER*/, "#2d5192"/*A2-SPRINKLER*/, "#f3c011"/*A2-STANDPIPE*/, "#a1def0"/*A2-PLUMBING*/, "#f28e2c"/*A3*/, "#bce333"/*A3-NO SUBTYPE*/, 
   "#2a6866"/*A3-CONSTRUCTION EQUIPMENT*/, "#56ebd3"/*A3-CHUTE*/, "#e76cef"/*A3-FENCE*/, "#4d9caa"/*A3-OTHER*/, "#bfd6fa"/*A3-SCAFFOLD*/, "#79c8ae"/*A3-SIDEWALK SHEDS*/])
 
@@ -256,7 +319,7 @@ function click(d) {
 }
 
 d3.select(self.frameElement).style("height", height + "px");
-
+})
 </script>
 </body>
 </html>
